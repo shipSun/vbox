@@ -1,5 +1,8 @@
 #/bin/bash
 
+groupadd www
+useradd -M -g www -s /bin/nologin www
+
 yum -y install libxml2-devel openssl-devel bzip2-devel curl-devel libjpeg-devel libpng-devel libXpm-devel freetype-devel gmp-devel libmcrypt-devel mysql-devel aspell-devel recode-devel icu libicu-devel gcc gcc-c++ autoconf freetype
 
 wget https://www.php.net/distributions/php-7.2.18.tar.gz
@@ -55,9 +58,11 @@ cd php-7.2.18
 --without-gdbm
 
 make && make install
+if [ ! -f "/usr/local/sbin/php" ];then
 
 ln -s /usr/local/php7/bin/php /usr/local/sbin/php
 
+fi
 cp php.ini-production /usr/local/php7/etc/php.ini
 
 cp /usr/local/php7/etc/php-fpm.conf.default /usr/local/php7/etc/php-fpm.conf
@@ -68,7 +73,7 @@ sed -i 's/;error_log = log\/php-fpm.log/error_log = log\/php-fpm.log/g' /usr/loc
 sed -i 's/;date.timezone =/date.timezone =Asia\/Shanghai/g' /usr/local/php7/etc/php.ini
 
 
-echo "#!/bin/bash  
+echo '#!/bin/bash  
 #Startup script for the PHP-FPM service.  
 #shebang机制
 # chkconfig:2345 85 20
@@ -150,6 +155,14 @@ case "$1" in
         echo $"Usage:$prog{start|stop|restart|test|status|help}"  
         exit 1  
 esac  
-exit $RETVAL" > /usr/local/php7/sbin/php-fpm.service
+exit $RETVAL' > /usr/local/php7/sbin/php-fpm.service
+
+chmod +x /usr/local/php7/sbin/php-fpm.service
+
+if [ ! -f "/etc/init.d/php-fpm" ];then 
 
 ln -s /usr/local/php7/sbin/php-fpm.service /etc/init.d/php-fpm
+
+fi
+
+cp /usr/local/php7/etc/php-fpm.d/www.conf.default /usr/local/php7/etc/php-fpm.d/www.conf
