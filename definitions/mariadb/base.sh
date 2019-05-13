@@ -10,7 +10,7 @@ enabled=1
 gpgcheck=0
 EOM
 
-yum -y install gcc* make kernel kernel-devel kernel-headers zlib-devel openssl-devel readline-devel sqlite-devel perl wget dkms nfs-utils  man acpid vim-common vim-enhanced ntp cmake
+yum -y install gcc* make kernel kernel-devel kernel-headers zlib-devel openssl-devel readline-devel sqlite-devel perl wget dkms man acpid vim-common vim-enhanced ntp cmake
 
 # Make ssh faster by not waiting on DNS
 echo "UseDNS no" >> /etc/ssh/sshd_config
