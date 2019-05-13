@@ -1,4 +1,6 @@
 #/bin/bash
+groupadd www
+useradd -M -g www -s /bin/nologin www
 
 yum -y install freetype libxml2-devel openssl-devel bzip2-devel curl-devel libjpeg-devel libpng-devel libXpm-devel freetype-devel gmp-devel libmcrypt-devel mysql-devel aspell-devel recode-devel icu libicu-devel gcc gcc-c++ autoconf
 
@@ -55,7 +57,11 @@ cd php-5.4.40
 
 make && make install
 
+if [ ! -f "/usr/local/sbin/php" ];then
+
 ln -s /usr/local/php5/bin/php /usr/local/sbin/php
+
+fi
 
 cp php.ini-production /usr/local/php5/etc/php.ini
 
@@ -67,7 +73,7 @@ sed -i 's/;error_log = log\/php-fpm.log/error_log = log\/php-fpm.log/g' /usr/loc
 sed -i 's/;date.timezone =/date.timezone =Asia\/Shanghai/g' /usr/local/php5/etc/php.ini
 sed -i 's/short_open_tag = Off/short_open_tag = On/g' /usr/local/php5/etc/php.ini
 
-echo "#!/bin/bash  
+echo '#!/bin/bash  
 #Startup script for the PHP-FPM service.  
 # chkconfig: php-fpm
 # description: PHP-FPM is fast-cgi ctrl programme  
@@ -148,6 +154,12 @@ case "$1" in
         echo $"Usage:$prog{start|stop|restart|test|status|help}"  
         exit 1  
 esac  
-exit $RETVAL" > /usr/local/php5/sbin/php-fpm.service
+exit $RETVAL' > /usr/local/php5/sbin/php-fpm.service
+
+chmod +x /usr/local/php7/sbin/php-fpm.service
+
+if [ ! -f "/etc/init.d/php-fpm" ];then 
 
 ln -s /usr/local/php5/sbin/php-fpm.service /etc/init.d/php-fpm
+
+fi
