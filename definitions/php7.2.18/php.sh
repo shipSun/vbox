@@ -1,23 +1,23 @@
 #/bin/bash
 
-yum -y install freetype libxml2-devel openssl-devel bzip2-devel curl-devel libjpeg-devel libpng-devel libXpm-devel freetype-devel gmp-devel libmcrypt-devel mysql-devel aspell-devel recode-devel icu libicu-devel gcc gcc-c++ autoconf
+yum -y install libxml2-devel openssl-devel bzip2-devel curl-devel libjpeg-devel libpng-devel libXpm-devel freetype-devel gmp-devel libmcrypt-devel mysql-devel aspell-devel recode-devel icu libicu-devel gcc gcc-c++ autoconf freetype
 
-wget https://www.php.net/distributions/php-5.4.40.tar.gz
+wget https://www.php.net/distributions/php-7.2.18.tar.gz
 
-tar zxvf php-5.4.40.tar.gz
+tar zxvf php-7.2.18.tar.gz
 
-cd php-5.4.40
+cd php-7.2.18
 
 ./configure \
---prefix=/usr/local/php5 \
---exec-prefix=/usr/local/php5 \
---bindir=/usr/local/php5/bin \
---sbindir=/usr/local/php5/sbin \
---includedir=/usr/local/php5/include \
---libdir=/usr/local/php5/lib/php \
---mandir=/usr/local/php5/php/man \
---with-config-file-path=/usr/local/php5/etc \
---with-config-file-scan-dir=/usr/local/php5/etc/php.d \
+--prefix=/usr/local/php7 \
+--exec-prefix=/usr/local/php7 \
+--bindir=/usr/local/php7/bin \
+--sbindir=/usr/local/php7/sbin \
+--includedir=/usr/local/php7/include \
+--libdir=/usr/local/php7/lib/php \
+--mandir=/usr/local/php7/php/man \
+--with-config-file-path=/usr/local/php7/etc \
+--with-config-file-scan-dir=/usr/local/php7/etc/php.d \
 --with-mhash \
 --with-openssl \
 --with-mysqli=shared,mysqlnd \
@@ -28,7 +28,7 @@ cd php-5.4.40
 --enable-zip \
 --enable-intl  \
 --enable-inline-optimization \
---enable-debug \
+--disable-debug \
 --disable-rpath \
 --enable-shared \
 --enable-xml \
@@ -48,6 +48,7 @@ cd php-5.4.40
 --with-curl \
 --with-jpeg-dir \
 --with-freetype-dir \
+--enable-opcache \
 --enable-fpm \
 --with-fpm-user=www \
 --with-fpm-group=www \
@@ -55,27 +56,28 @@ cd php-5.4.40
 
 make && make install
 
-ln -s /usr/local/php5/bin/php /usr/local/sbin/php
+ln -s /usr/local/php7/bin/php /usr/local/sbin/php
 
-cp php.ini-production /usr/local/php5/etc/php.ini
+cp php.ini-production /usr/local/php7/etc/php.ini
 
-cp /usr/local/php5/etc/php-fpm.conf.default /usr/local/php5/etc/php-fpm.conf
+cp /usr/local/php7/etc/php-fpm.conf.default /usr/local/php7/etc/php-fpm.conf
 
-sed -i 's/;pid = run\/php-fpm.pid/pid = run\/php-fpm.pid/g' /usr/local/php5/etc/php-fpm.conf
-sed -i 's/;error_log = log\/php-fpm.log/error_log = log\/php-fpm.log/g' /usr/local/php5/etc/php-fpm.conf
+sed -i 's/;pid = run\/php-fpm.pid/pid = run\/php-fpm.pid/g' /usr/local/php7/etc/php-fpm.conf
+sed -i 's/;error_log = log\/php-fpm.log/error_log = log\/php-fpm.log/g' /usr/local/php7/etc/php-fpm.conf
 
-sed -i 's/;date.timezone =/date.timezone =Asia\/Shanghai/g' /usr/local/php5/etc/php.ini
-sed -i 's/short_open_tag = Off/short_open_tag = On/g' /usr/local/php5/etc/php.ini
+sed -i 's/;date.timezone =/date.timezone =Asia\/Shanghai/g' /usr/local/php7/etc/php.ini
+
 
 echo "#!/bin/bash  
 #Startup script for the PHP-FPM service.  
-# chkconfig: php-fpm
+#shebang机制
+# chkconfig:2345 85 20
 # description: PHP-FPM is fast-cgi ctrl programme  
 #  
-phpfpm=/usr/local/php5/sbin/php-fpm  
-phpfpm_config=/usr/local/php5/etc/php-fpm.conf  
-phpfpm_pid=/usr/local/php5/php-fpm.pid  
-php_config=/usr/local/php5/etc/php.ini  
+phpfpm=/usr/local/php7/sbin/php-fpm  
+phpfpm_config=/usr/local/php7/etc/php-fpm.conf  
+phpfpm_pid=/usr/local/php7/php-fpm.pid  
+php_config=/usr/local/php7/etc/php.ini  
   
 RETYAL=0  
 prog="php-fpm"  
@@ -148,6 +150,6 @@ case "$1" in
         echo $"Usage:$prog{start|stop|restart|test|status|help}"  
         exit 1  
 esac  
-exit $RETVAL" > /usr/local/php5/sbin/php-fpm.service
+exit $RETVAL" > /usr/local/php7/sbin/php-fpm.service
 
-ln -s /usr/local/php5/sbin/php-fpm.service /etc/init.d/php-fpm
+ln -s /usr/local/php7/sbin/php-fpm.service /etc/init.d/php-fpm
