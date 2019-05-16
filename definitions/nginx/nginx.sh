@@ -32,4 +32,4 @@ cd nginx-1.10.3
 make && make install
 
 mkdir /var/cache/nginx
-chown www:www /var/cahce/nginx
+chown www:www /var/cache/nginx
