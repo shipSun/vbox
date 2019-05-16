@@ -43,8 +43,5 @@ cmake . \
 
 make && make install
 
-cd /usr/local/mariaDB
-
-/usr/local/mariaDB/scripts/mysql_install_db --user=www --basedir=/usr/local/mariaDB --datadir=/var/local/data
 
 
