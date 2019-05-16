@@ -9,7 +9,7 @@ cd mariadb-10.3.14
 
 groupadd www
 
-useradd -g www -s /bin/nologin www
+useradd -M -g www -s /bin/nologin www
 
 cmake . \
 -DCMAKE_INSTALL_PREFIX=/usr/local/mariaDB \
@@ -46,3 +46,5 @@ make && make install
 cd /usr/local/mariaDB
 
 /usr/local/mariaDB/scripts/mysql_install_db --user=www --basedir=/usr/local/mariaDB --datadir=/var/local/data
+
+

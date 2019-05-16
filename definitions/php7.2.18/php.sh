@@ -76,7 +76,7 @@ sed -i 's/;date.timezone =/date.timezone =Asia\/Shanghai/g' /usr/local/php7/etc/
 echo '#!/bin/bash  
 #Startup script for the PHP-FPM service.  
 #shebang机制
-# chkconfig:2345 85 20
+# chkconfig:4 85 20
 # description: PHP-FPM is fast-cgi ctrl programme  
 #  
 phpfpm=/usr/local/php7/sbin/php-fpm  
@@ -166,3 +166,5 @@ ln -s /usr/local/php7/sbin/php-fpm.service /etc/init.d/php-fpm
 fi
 
 cp /usr/local/php7/etc/php-fpm.d/www.conf.default /usr/local/php7/etc/php-fpm.d/www.conf
+
+chkconfig --add php-fpm

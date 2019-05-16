@@ -75,7 +75,7 @@ sed -i 's/short_open_tag = Off/short_open_tag = On/g' /usr/local/php5/etc/php.in
 
 echo '#!/bin/bash  
 #Startup script for the PHP-FPM service.  
-# chkconfig: php-fpm
+# chkconfig:4 85 20
 # description: PHP-FPM is fast-cgi ctrl programme  
 #  
 phpfpm=/usr/local/php5/sbin/php-fpm  
@@ -163,3 +163,5 @@ if [ ! -f "/etc/init.d/php-fpm" ];then
 ln -s /usr/local/php5/sbin/php-fpm.service /etc/init.d/php-fpm
 
 fi
+
+chkconfig --add php-fpm
