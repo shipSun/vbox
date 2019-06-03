@@ -100,7 +100,7 @@ start() {
     [ -f $phpfpm_config ] || \
 	{ echo "FATAL: Config file does not exist";exit 6; }  
     if [ -e $phpfpm_pid ];then 
-        pid=`ps -e | grep php-fpm | awk 'NR==1{print$1'}`
+        pid=`ps -e | grep php-fpm | awk "NR==1{print$1}"`
 	diffpid=`cat $phpfpm_pid`
 	if [ $pid -ne $diffpid ];then
 		rm -rf $phpfpm_pid

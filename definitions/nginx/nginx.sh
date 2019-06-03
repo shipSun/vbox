@@ -74,7 +74,7 @@ prog="nginx"
 start() {  
  
 if [ -e $nginx_pid ];then 
-pid=`ps -e | grep nginx | awk 'NR==1{print$1}'`
+pid=`ps -e | grep nginx | awk "NR==1{print$1}"`
 diffpid=`cat $nginx_pid`
 if [ $pid -ne $diffpid ];then
    rm -rf $nginx_pid
