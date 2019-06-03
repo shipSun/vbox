@@ -156,7 +156,7 @@ case "$1" in
 esac  
 exit $RETVAL' > /usr/local/php5/sbin/php-fpm.service
 
-chmod +x /usr/local/php7/sbin/php-fpm.service
+chmod +x /usr/local/php5/sbin/php-fpm.service
 
 if [ ! -f "/etc/init.d/php-fpm" ];then 
 
