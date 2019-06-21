@@ -4,7 +4,7 @@ useradd -M -g www -s /bin/nologin www
 
 yum -y install freetype libxml2-devel openssl-devel bzip2-devel curl-devel libjpeg-devel libpng-devel libXpm-devel freetype-devel gmp-devel libmcrypt-devel mysql-devel aspell-devel recode-devel icu libicu-devel gcc gcc-c++ autoconf
 
-wget https://www.php.net/distributions/php-5.4.40.tar.gz
+wget https://www.php.net/distributions/php-5.6.40.tar.gz
 
 tar zxvf php-5.6.40.tar.gz
 
