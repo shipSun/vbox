@@ -3,7 +3,7 @@
 groupadd www
 useradd -M -g www -s /bin/nologin www
 
-yum -y install libxml2-devel openssl-devel bzip2-devel curl-devel libjpeg-devel libpng-devel libXpm-devel freetype-devel gmp-devel libmcrypt-devel mysql-devel aspell-devel recode-devel icu libicu-devel gcc gcc-c++ autoconf freetype
+yum -y install libxml2-devel openssl-devel bzip2-devel curl-devel libjpeg-devel libpng-devel libXpm-devel gmp-devel libmcrypt-devel mysql-devel aspell-devel recode-devel icu libicu-devel gcc gcc-c++ autoconf freetype freetype-devel
 
 wget https://www.php.net/distributions/php-7.2.18.tar.gz
 
@@ -31,7 +31,6 @@ cd php-7.2.18
 --enable-zip \
 --enable-intl  \
 --enable-inline-optimization \
---disable-debug \
 --disable-rpath \
 --enable-shared \
 --enable-xml \
