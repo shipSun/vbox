@@ -52,7 +52,8 @@ cd php-5.6.40
 --enable-fpm \
 --with-fpm-user=www \
 --with-fpm-group=www \
---without-gdbm
+--without-gdbm \
+--with-mcrypt
 
 make && make install
 

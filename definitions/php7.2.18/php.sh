@@ -54,7 +54,8 @@ cd php-7.2.18
 --enable-fpm \
 --with-fpm-user=www \
 --with-fpm-group=www \
---without-gdbm
+--without-gdbm \
+--with-mcrypt
 
 make && make install
 if [ ! -f "/usr/local/sbin/php" ];then
