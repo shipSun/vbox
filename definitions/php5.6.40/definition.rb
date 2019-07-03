@@ -32,7 +32,7 @@ Veewee::Session.declare({
     "virtualbox.sh",
     "php.sh",
     #"vmfusion.sh",
-    "cleanup.sh",
+    #"cleanup.sh",
     "zerodisk.sh"
   ],
   :postinstall_timeout => 10000
