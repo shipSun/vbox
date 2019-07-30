@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/bash
 
 groupadd www
 useradd -M -g www -s /bin/nologin www
